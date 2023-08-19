@@ -1,5 +1,18 @@
-import Image from "next/image";
+// pages/index.js
+"use client";
+import Head from "next/head";
+import ThreeScene from "../components/ThreeScene";
 
-export default function Home() {
-  return <div>Morty its a portfolio</div>;
-}
+const HomePage = () => {
+  return (
+    <div>
+      <Head>
+        <title>Morty its a portfolio</title>
+      </Head>
+      <h1>Morty its a portfolio</h1>
+      <ThreeScene />
+    </div>
+  );
+};
+
+export default HomePage;
