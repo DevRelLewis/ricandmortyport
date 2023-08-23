@@ -60,13 +60,44 @@ const ThreeScene = () => {
         const thirdModel = thirdGltf.scene;
 
         // Position the 3rd model within the interior of the first model
-        thirdModel.position.set(0, 2, 4.6); // Adjust x, y, z values
+        thirdModel.position.set(-2.9, 1.33, 3.6); // Adjust x, y, z values
 
         // Set the scale of the third model
         thirdModel.scale.set(0.35, 0.35, 0.35); // Adjust x, y, z scale values
 
         // Add the third model as a child of the first model
         model.add(thirdModel);
+      });
+
+      // Load the GLB model (4th model)
+      loader.load("/pickle_jar.glb", (fourthGltf) => {
+        const fourthModel = fourthGltf.scene;
+
+        // Position the fourth model within the interior of the first model
+        fourthModel.position.set(0.5, 1, 5.3); // Adjust x, y, z values
+
+        // Set the scale of the fourth model
+        fourthModel.scale.set(0.005, 0.005, 0.005); // Adjust x, y, z scale values
+
+        // Add the fourth model as a child of the first model
+        model.add(fourthModel);
+      });
+
+      // Load the GLB model (5th model)
+      loader.load("/portal_gun.glb", (fifthGltf) => {
+        const fifthModel = fifthGltf.scene;
+
+        // Position the fifth model within the interior of the first model
+        fifthModel.position.set(-0.02, 1.1, 5.3); // Adjust x, y, z values
+
+        // Set the scale of the fifth model
+        fifthModel.scale.set(2, 2, 2); // Adjust x, y, z scale values
+
+        // Rotate the fifth model on the x-axis (in degrees)
+        fifthModel.rotation.y = THREE.MathUtils.degToRad(180); // Rotate 45 degrees on x-axis
+
+        // Add the fifth model as a child of the first model
+        model.add(fifthModel);
       });
 
       // Start rendering loop
