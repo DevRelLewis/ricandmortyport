@@ -91,11 +91,30 @@ const ThreeScene = () => {
 
             if (
               loadedAnimations === animations.length &&
-              object.animations[3]
+              object.animations[4]
             ) {
               mixer = new THREE.AnimationMixer(object);
               const idleAction = mixer.clipAction(object.animations[4]);
+              idleAction.timeScale = 10;
               idleAction.play();
+
+              // Set up an interval to change the animation every 10 seconds
+              setInterval(() => {
+                // Generate a random index to pick an animation
+                const randomIndex = Math.floor(
+                  Math.random() * object.animations.length
+                );
+
+                // Stop the current animation
+                mixer.stopAllAction();
+
+                // Play the new random animation
+                const randomAction = mixer.clipAction(
+                  object.animations[randomIndex]
+                );
+                randomAction.timeScale = 10;
+                randomAction.play();
+              }, 10000); // 10000 milliseconds = 10 seconds
             }
           });
         });
