@@ -1,11 +1,24 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import * as THREE from "three";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { FBXLoader } from "three/examples/jsm/loaders/FBXLoader.js";
 
+let counterTime = 10000;
+let isFirstRender = true;
+
 const ThreeScene = () => {
   const sceneRef = useRef(null);
+  const [isModalOpen, setModalOpen] = useState(true);
+  const raycaster = new THREE.Raycaster();
+  const mouse = new THREE.Vector2();
+  const [counter, setCounter] = useState(0);
+
+  function onClose() {
+    setModalOpen((prevState) => !prevState);
+    setCounter((prevState) => prevState + 1);
+    console.log(counter);
+  }
 
   useEffect(() => {
     const scene = new THREE.Scene();
@@ -22,6 +35,27 @@ const ThreeScene = () => {
 
     const ambientLight = new THREE.AmbientLight(0xffffff, 6);
     scene.add(ambientLight);
+
+    // window.addEventListener("mousemove", (event) => {
+    //   mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+    //   mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+    // });
+
+    // window.addEventListener("click", () => {
+    //   raycaster.setFromCamera(mouse, camera);
+    //   const intersects = raycaster.intersectObjects(scene.children, true);
+
+    //   // conditionals for intersecting 3d models
+    //   if (intersects.length > 0) {
+    //     // Wait for a short delay before opening the modal
+    //     setTimeout(() => {
+    //       setModalOpen(true);
+    //     }, counterTime); // Adjust the delay time as needed
+    //   } else {
+    //     // No intersections, close the modal immediately
+    //     setModalOpen(false);
+    //   }
+    // });
 
     const loader = new GLTFLoader();
     loader.load("/rick.glb", (gltf) => {
