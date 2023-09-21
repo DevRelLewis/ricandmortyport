@@ -7,15 +7,15 @@ const Modal = ({ isOpen, closeModal, modalIndex }) => {
   const [source, setSource] = useState("");
   useEffect(() => {
     if (modalIndex == 0) {
-      setSource("/cv_1.png");
+      setSource("/rickandmorty_experience.png");
     } else if (modalIndex == 1) {
-      setSource("/cv_1.png");
-    } else if (modalIndex == 1) {
-      setSource("/cv_1.png");
-    } else if (modalIndex == 1) {
-      setSource("/cv_1.png");
+      setSource("/rickandmorty_projects.png");
+    } else if (modalIndex == 2) {
+      setSource("/rickandmorty_skills.png");
+    } else if (modalIndex == 3) {
+      setSource("/rickandmorty_socials.png");
     }
-  }, []);
+  }, [modalIndex]);
   return (
     <div
       className={`fixed inset-0 flex items-center justify-center transition-opacity ${
@@ -25,7 +25,7 @@ const Modal = ({ isOpen, closeModal, modalIndex }) => {
       <div className="w-[600px] h-[800px] bg-white rounded-xl flex flex-col items-center justify-center">
         Modal {modalIndex + 1}
         <div>
-          <Image src={source} width={560} height={560} alt="cv_1" />
+          <Image src={source} width={560} height={560} alt="" />
         </div>
         <button
           onClick={closeModal}

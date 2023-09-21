@@ -11,6 +11,7 @@ const HomePage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isPlaying, setIsPlaying] = useState(true); // Initially playing
   const [volume, setVolume] = useState(0.5); // Initial volume value
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     // Initialize Howler
@@ -38,16 +39,23 @@ const HomePage = () => {
     if (modalIndex < 4) {
       const timer = setTimeout(() => {
         setIsModalOpen(true);
-      }, 10000);
+      }, 15000);
 
       return () => clearTimeout(timer);
     }
   }, [modalIndex]);
 
+  useEffect(() => {
+    if (window.innerWidth <= 768) {
+      setIsMobile(true);
+    }
+  });
+
   const closeModal = () => {
     setIsModalOpen(false);
     if (modalIndex < 3) {
-      setModalIndex(modalIndex + 1);
+      setModalIndex((prev) => prev + 1);
+      console.log(setModalIndex);
     }
   };
 
@@ -64,51 +72,57 @@ const HomePage = () => {
 
   return (
     <div>
-      <ThreeScene />
+      {isMobile ? (
+        <div>Not Optimized for Mobile</div>
+      ) : (
+        <div>
+          <ThreeScene />
 
-      {/* Play/Pause Button */}
-      <button
-        id="musicButton"
-        style={{
-          background: "transparent",
-          border: "none",
-          cursor: "pointer",
-          position: "absolute",
-          bottom: "33px",
-          left: "90%",
-          transform: "translateX(-50%)",
-        }}
-        onClick={togglePlayPause}
-      >
-        {isPlaying ? (
-          <img src="/pause.png" alt="Pause" />
-        ) : (
-          <img src="/play.png" alt="Play" />
-        )}
-      </button>
+          {/* Play/Pause Button */}
+          <button
+            id="musicButton"
+            style={{
+              background: "transparent",
+              border: "none",
+              cursor: "pointer",
+              position: "absolute",
+              bottom: "33px",
+              left: "90%",
+              transform: "translateX(-50%)",
+            }}
+            onClick={togglePlayPause}
+          >
+            {isPlaying ? (
+              <img src="/pause.png" alt="Pause" />
+            ) : (
+              <img src="/play.png" alt="Play" />
+            )}
+          </button>
 
-      {/* Volume Slider */}
-      <input
-        type="range"
-        min="0"
-        max="1"
-        step="0.01"
-        value={volume}
-        onChange={handleVolumeChange}
-        className="sliderBlack"
-        style={{
-          position: "absolute",
-          bottom: "21px",
-          left: "83.5%",
-          transform: "translateX(50%)",
-        }}
-      />
+          {/* Volume Slider */}
+          <input
+            type="range"
+            min="0"
+            max="1"
+            step="0.01"
+            value={volume}
+            onChange={handleVolumeChange}
+            className="sliderBlack"
+            style={{
+              position: "absolute",
+              bottom: "21px",
+              left: "83.5%",
+              transform: "translateX(50%)",
+            }}
+          />
 
-      <Modal
-        isOpen={isModalOpen}
-        closeModal={closeModal}
-        modalIndex={modalIndex}
-      />
+          <Modal
+            isOpen={isModalOpen}
+            closeModal={closeModal}
+            modalIndex={modalIndex}
+          />
+        </div>
+      )}
     </div>
   );
 };
