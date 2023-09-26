@@ -1,21 +1,20 @@
 // components/Modal.js
-import React from "react";
-import Image from "next/image";
-import { useState, useEffect } from "react";
+import React from "react"
+import Image from "next/image"
+import { useState, useEffect } from "react"
 
 const Modal = ({ isOpen, closeModal, modalIndex }) => {
-  const [source, setSource] = useState("");
+  const [source, setSource] = useState("")
   useEffect(() => {
     if (modalIndex == 0) {
-      setSource("/rickandmorty_experience.png");
+      setSource("/rickandmorty_experience.png")
     } else if (modalIndex == 1) {
-      setSource("/rickandmorty_projects.png");
+      setSource("/rickandmorty_projects.png")
     } else if (modalIndex == 2) {
-      setSource("/rickandmorty_skills.png");
-    } else if (modalIndex == 3) {
-      setSource("/rickandmorty_socials.png");
+      setSource("/rickandmorty_skills.png")
+    } else {
     }
-  }, [modalIndex]);
+  }, [modalIndex])
   return (
     <div
       className={`fixed inset-0 flex items-center justify-center transition-opacity ${
@@ -35,7 +34,7 @@ const Modal = ({ isOpen, closeModal, modalIndex }) => {
         </button>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default Modal;
+export default Modal
