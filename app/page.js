@@ -4,8 +4,8 @@ import React, { useState, useEffect } from "react"
 import { Howl, Howler } from "howler"
 import Head from "next/head"
 import ThreeScene from "../components/ThreeScene"
-import Modal from "../components/Modal"
 import Link from "next/link"
+import Image from "next/image"
 
 const HomePage = () => {
   const [modalIndex, setModalIndex] = useState(0)
@@ -14,6 +14,7 @@ const HomePage = () => {
   const [volume, setVolume] = useState(0.5) // Initial volume value
   const [isMobile, setIsMobile] = useState(false)
   const [isModal2Open, setIsModal2Open] = useState(false)
+  const [source, setSource] = useState("")
 
   useEffect(() => {
     // Initialize Howler
@@ -37,8 +38,31 @@ const HomePage = () => {
     }
   }, [isPlaying, volume])
 
+  // Function to toggle play/pause
+  const togglePlayPause = () => {
+    setIsPlaying(!isPlaying)
+  }
+
   useEffect(() => {
-    if (modalIndex < 4) {
+    if (modalIndex == 0) {
+      setSource("/rickandmorty_experience.png")
+    } else if (modalIndex == 1) {
+      setSource("/rickandmorty_projects.png")
+    } else if (modalIndex == 2) {
+      setSource("/rickandmorty_skills.png")
+    } else if (modalIndex == 3) {
+      setSource("")
+    }
+  }, [modalIndex])
+
+  // Function to handle volume change
+  const handleVolumeChange = (event) => {
+    const newVolume = parseFloat(event.target.value)
+    setVolume(newVolume)
+  }
+
+  useEffect(() => {
+    if (modalIndex < 3) {
       const timer = setTimeout(() => {
         setIsModalOpen(true)
       }, 15000)
@@ -55,29 +79,18 @@ const HomePage = () => {
 
   const closeModal = () => {
     setIsModalOpen(false)
-    if (modalIndex <= 2) {
+    if (modalIndex < 2) {
       setModalIndex((prev) => prev + 1)
-    } else {
+      console.log(modalIndex)
+    } else if (modalIndex == 2) {
       setIsModal2Open(true)
     }
   }
 
-  // Function to toggle play/pause
-  const togglePlayPause = () => {
-    setIsPlaying(!isPlaying)
-  }
-
   // Function to handle final modal onClick
-
   function closeModal2() {
     setIsModal2Open(true)
-    setModalIndex(4)
-  }
-
-  // Function to handle volume change
-  const handleVolumeChange = (event) => {
-    const newVolume = parseFloat(event.target.value)
-    setVolume(newVolume)
+    setModalIndex(3)
   }
 
   return (
@@ -125,13 +138,31 @@ const HomePage = () => {
               transform: "translateX(50%)",
             }}
           />
-
-          <Modal
-            isOpen={isModalOpen}
-            closeModal={closeModal}
-            modalIndex={modalIndex}
-          />
-          {isModal2Open && modalIndex == 3 ? (
+          {isModalOpen && modalIndex <= 2 ? (
+            <div>
+              {" "}
+              <div
+                className={`fixed inset-0 flex items-center justify-center transition-opacity ${
+                  isModalOpen ? "opacity-100" : "opacity-0 pointer-events-none"
+                }`}
+              >
+                <div className="w-[600px] h-[800px] bg-white rounded-xl flex flex-col items-center justify-center">
+                  <div>
+                    <Image src={source} width={560} height={560} alt="" />
+                  </div>
+                  <button
+                    onClick={closeModal}
+                    className="w-[50px] h-[30px] bg-blue-500 text-white rounded"
+                  >
+                    Close
+                  </button>
+                </div>
+              </div>
+            </div>
+          ) : (
+            <div></div>
+          )}
+          {isModal2Open ? (
             <div className="w-[600px] h-[800px] bg-white text-black rounded-xl flex flex-col fixed inset-0 items-center justify-center transition-opacity xl:ml-[545px] xl:mt-[67px] 2xl:ml-[660px] 2xl:mt-[77px] ">
               <Link href="https://twitter.com/DevRelLewis">Twitter</Link>
               <Link href="https://www.linkedin.com/in/devrellewis/">
