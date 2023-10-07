@@ -191,7 +191,7 @@ const HomePage = () => {
                   src="/github.png"
                 ></Image>
               </Link>
-              <Link href="https://gmail.com/">
+              <Link href="mailto:meyerslewis193@gmail.com">
                 <Image
                   className="rounded-xl"
                   width={100}
