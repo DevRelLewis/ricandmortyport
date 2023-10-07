@@ -89,8 +89,8 @@ const HomePage = () => {
 
   // Function to handle final modal onClick
   function closeModal2() {
-    setIsModal2Open(true)
-    setModalIndex(3)
+    setIsModal2Open(false)
+    setModalIndex(4)
   }
 
   return (
@@ -163,12 +163,43 @@ const HomePage = () => {
             <div></div>
           )}
           {isModal2Open ? (
-            <div className="w-[600px] h-[800px] bg-white text-black rounded-xl flex flex-col fixed inset-0 items-center justify-center transition-opacity xl:ml-[545px] xl:mt-[67px] 2xl:ml-[660px] 2xl:mt-[77px] ">
-              <Link href="https://twitter.com/DevRelLewis">Twitter</Link>
-              <Link href="https://www.linkedin.com/in/devrellewis/">
-                Linkedin
+            <div className="w-[600px] h-[800px] bg-white text-black rounded-xl flex flex-col fixed inset-0 items-center justify-center transition-opacity xl:ml-[545px] xl:mt-[67px] 2xl:ml-[660px] 2xl:mt-[77px]">
+              <div className="text-6xl">Reach out to me!</div> <br></br>
+              <Link href="https://twitter.com/DevRelLewis">
+                <Image
+                  className="rounded-xl"
+                  width={100}
+                  height={100}
+                  src="/x_logo.webp"
+                ></Image>
               </Link>
-              <Link href="https://github.com/DevRelLewis/">Github</Link>
+              <Link href="https://www.linkedin.com/in/devrellewis/">
+                <br></br>
+                <Image
+                  className="rounded-xl"
+                  width={100}
+                  height={100}
+                  src="/linkedin.png"
+                ></Image>
+              </Link>
+              <Link href="https://github.com/DevRelLewis/">
+                <br></br>
+                <Image
+                  className="rounded-xl"
+                  width={100}
+                  height={100}
+                  src="/github.png"
+                ></Image>
+              </Link>
+              <Link href="https://gmail.com/">
+                <Image
+                  className="rounded-xl"
+                  width={100}
+                  height={100}
+                  src="/gmail.png"
+                ></Image>
+              </Link>
+              <br></br>
               <button
                 onClick={closeModal2}
                 className="w-[50px] h-[30px] bg-blue-500 text-white rounded"
